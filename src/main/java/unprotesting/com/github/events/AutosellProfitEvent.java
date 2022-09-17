@@ -1,8 +1,5 @@
 package unprotesting.com.github.events;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.Bukkit;
@@ -15,6 +12,10 @@ import unprotesting.com.github.data.Transaction;
 import unprotesting.com.github.data.Transaction.TransactionType;
 import unprotesting.com.github.util.EconomyUtil;
 import unprotesting.com.github.util.Format;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * The event for sending a player their money from items they have auto-sold.
@@ -50,7 +51,7 @@ public class AutosellProfitEvent extends AutoTuneEvent {
                 double price = shop.getSellPrice();
                 double total = price * amount;
                 OfflinePlayer player = Bukkit.getOfflinePlayer(entry.getKey());
-                EconomyUtil.getEconomy().depositPlayer(player, entry.getValue());
+                EconomyUtil.getEconomy().depositPlayer(player, total);
                 ShopUtil.addTransaction(new Transaction(
                         price, amount, entry.getKey(), s, TransactionType.SELL));
                 EconomyDataUtil.increaseEconomyData("GDP", total / 2);
